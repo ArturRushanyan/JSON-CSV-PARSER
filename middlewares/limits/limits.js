@@ -7,11 +7,15 @@ const limitChecker = async (req, res, next) => {
     const apiKey = req.headers.apikey;
     const hash = req.headers.hash;
 
-    if (apiKey || hash) {
+    if (!apiKey || !hash) {
       throw { status: 400, message: constMessages.MISSING_PARAMETERS };
     }
 
     const userInfo = await userService.getUserByApiKey(apiKey);
+
+    if (!userInfo) {
+      throw { status: 404, message: constMessages.NO_DATA };
+    }
 
     const { subscriptionLimits } = userInfo;
     if (userInfo.requestCount > subscriptionLimits.requestLimit) {

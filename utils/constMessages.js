@@ -3,4 +3,5 @@ module.exports = {
     "You've reached your subscription's request limit. Please upgrade to continue using the API.",
   INVALID_HASH: "Invalid hash parameter",
   MISSING_PARAMETERS: "Missing required headers: hash or apiKey",
+  NO_DATA: "No Data",
 };
