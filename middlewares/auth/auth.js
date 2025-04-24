@@ -22,6 +22,9 @@ const validateLoginData = async (req, res, next) => {
   }
 };
 
+const validateRegistrationUserData = async (req, res, next) => {}
+
 module.exports = {
   validateLoginData,
+  validateRegistrationUserData
 };

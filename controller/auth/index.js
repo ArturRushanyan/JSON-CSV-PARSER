@@ -1,9 +1,10 @@
 const login = async (req, res) => {
-  console.log("aaaaaaaaa ==========");
-
   return res.status(200).send({ success: true });
 };
 
+const registerNewUser = async (req, res) => {};
+
 module.exports = {
   login,
+  registerNewUser,
 };
