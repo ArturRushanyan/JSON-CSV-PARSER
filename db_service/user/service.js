@@ -27,33 +27,37 @@ const incrementUserRequestsCount = async (userId) => {
 };
 
 const registerNewUser = async (data) => {
-  let user;
-  await prisma.$transaction(async (tx) => {
-    const userSecret = await tx.userSecrets.create({
-      data: {},
-    });
+  try {
+    let user;
+    await prisma.$transaction(async (tx) => {
+      const userSecret = await tx.userSecrets.create({
+        data: {},
+      });
 
-    user = await tx.user.create({
-      data: {
-        email: data.email,
-        apiKey: uuidv4(),
-        requestCount: 0,
-        allowedIps: [],
-        subscriptionLimits: {
-          connect: {
-            id: data.subscriptionId,
+      user = await tx.user.create({
+        data: {
+          email: data.email,
+          apiKey: uuidv4(),
+          requestCount: 0,
+          allowedIps: [],
+          subscriptionLimits: {
+            connect: {
+              id: data.subscriptionId,
+            },
+          },
+          userSecrets: {
+            connect: {
+              id: userSecret.id,
+            },
           },
         },
-        userSecrets: {
-          connect: {
-            id: userSecret.id,
-          },
-        },
-      },
+      });
     });
-  });
 
-  return user;
+    return user;
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {

@@ -1,6 +1,7 @@
 const constMessages = require("../../utils/constMessages");
 const authService = require("../../db_service/auth/service");
 const userService = require("../../db_service/user/service");
+const subscriptionLimitService = require("../../db_service/subscriptionLimits/service");
 const hashHelper = require("../../utils/hash");
 const JWTHelpers = require("../../utils/JWT");
 
@@ -31,6 +32,27 @@ const login = async (req, res, next) => {
 const registerNewUser = async (req, res, next) => {
   try {
     const reqBody = req.body;
+
+    const subscriptionLimit =
+      await subscriptionLimitService.getSubscriptionById(
+        reqBody.subscriptionId
+      );
+
+    if (!subscriptionLimit) {
+      throw {
+        status: 404,
+        message: constMessages.INVALID_PARAMETER("subscriptionId"),
+      };
+    }
+
+    const user = authService.getAccountByEmail(req.body.email);
+    if (user) {
+      throw {
+        status: 400,
+        message: constMessages.USER_ALREADY_EXISTS,
+      };
+    }
+
     const newUserData = await userService.registerNewUser(reqBody);
 
     return res.status(201).send({
