@@ -1,4 +1,4 @@
-const userService = require("../../service/user/service");
+const userService = require("../../db_service/user/service");
 const constMessages = require("../../utils/constMessages");
 const hashHelper = require("../../utils/hash");
 

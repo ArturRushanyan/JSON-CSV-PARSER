@@ -20,27 +20,27 @@ enum UserStatus {
 }
 
 model User {
-  id                   String              @id @default(uuid())
+  id                   Int                 @id @default(autoincrement())
   email                String              @unique
   apiKey               String              @unique
   requestCount         Int
   allowedIps           String[]
   status               UserStatus          @default(Pending)
   subscriptionLimits   SubscriptionLimits? @relation(fields: [subscriptionLimitsId], references: [id])
-  subscriptionLimitsId String?
+  subscriptionLimitsId Int?
   userSecrets          UserSecrets?        @relation(fields: [userSecretsId], references: [id])
-  userSecretsId        String?             @unique
+  userSecretsId        Int?                @unique
 }
 
 model UserSecrets {
-  id        String   @id @default(uuid())
+  id        Int      @id @default(autoincrement())
   secretKey String   @unique @default(uuid())
   user      User?    @relation
   createdAt DateTime @default(now())
 }
 
 model SubscriptionLimits {
-  id           String  @id @default(uuid())
+  id           Int     @id @default(autoincrement())
   price        Decimal @db.Money
   requestLimit Int
   name         String
@@ -53,7 +53,7 @@ enum AccountsStatus {
 }
 
 model Accounts {
-  id        String         @id @default(uuid())
+  id        Int            @id @default(autoincrement())
   email     String         @db.VarChar(255)
   password  String         @db.VarChar(255)
   firstName String         @db.VarChar(255)

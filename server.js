@@ -3,11 +3,9 @@ const cors = require("cors");
 const config = require("./configs/config");
 const routes = require("./routes/index");
 const errorHandler = require("./errorHandler/errorHandler");
-const { limitChecker } = require("./middlewares/limits/limits");
 
 const startServer = async (app) => {
   try {
-    app.use(limitChecker);
     app.use(cors());
 
     app.use(bodyParser.urlencoded({ extended: false }));

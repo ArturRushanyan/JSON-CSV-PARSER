@@ -4,4 +4,9 @@ module.exports = {
   INVALID_HASH: "Invalid hash parameter",
   MISSING_PARAMETERS: "Missing required headers: hash or apiKey",
   NO_DATA: "No Data",
+  INVALID_LOGIN_CREDENTIALS: "Invalid login credentials",
+  TOKEN_IS_EXPIRED: "The token has expired",
+  USER_CREATED: "User successfully created",
+  MISSING_AUTH_HEADERS: "Missing or invalid Authorization header",
+  PARAMETER_IS_REQUIRED: (parameter) => `${parameter} is required`,
 };

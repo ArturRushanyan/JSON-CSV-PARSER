@@ -8,7 +8,6 @@ const isValidJSON = async (req, res, next) => {
     }
 
     const { data } = req.body;
-    console.log("here ==========");
     if (!Array.isArray(data)) {
       throw {
         status: 400,
