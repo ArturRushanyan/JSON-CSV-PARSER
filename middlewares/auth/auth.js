@@ -54,15 +54,15 @@ const validateRegistrationUserData = async (req, res, next) => {
       };
     }
 
-    if (
-      !reqBody.subscriptionId ||
-      !validator.isNumeric(`${reqBody.subscriptionId}`)
-    ) {
-      throw {
-        status: 400,
-        message: constMessages.PARAMETER_IS_REQUIRED("SubscriptionId"),
-      };
-    }
+    // if (
+    //   !reqBody.subscriptionId ||
+    //   !validator.isNumeric(`${reqBody.subscriptionId}`)
+    // ) {
+    //   throw {
+    //     status: 400,
+    //     message: constMessages.PARAMETER_IS_REQUIRED("SubscriptionId"),
+    //   };
+    // }
 
     next();
   } catch (error) {
