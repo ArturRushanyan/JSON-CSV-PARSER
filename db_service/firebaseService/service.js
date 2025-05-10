@@ -34,8 +34,25 @@ const getUserByApiKey = async (apiKey) => {
   return snapshot.data();
 };
 
+const getUserByEmail = async (email) => {
+  const snapshot = await firebaseDB
+    .collection("accounts")
+    .where("email", "==", email)
+    .get();
+
+  if (snapshot.empty) {
+    return false;
+  }
+
+  const doc = snapshot.docs[0];
+  const data = doc.data();
+
+  return data;
+};
+
 module.exports = {
   registerNewUser,
   getAccountByEmail,
   getUserByApiKey,
+  getUserByEmail,
 };
