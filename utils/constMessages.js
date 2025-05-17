@@ -10,6 +10,7 @@ module.exports = {
   USER_CREATED: "User successfully created",
   MISSING_AUTH_HEADERS: "Missing or invalid Authorization header",
   USER_ALREADY_EXISTS: "User with this email already exists",
+  FORBIDDEN: "Forbidden",
   PARAMETER_IS_REQUIRED: (parameter) => `${parameter} is required`,
   INVALID_PARAMETER: (parameter) => `Invalid parameter: ${parameter}`,
 };
