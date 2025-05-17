@@ -3,7 +3,6 @@ const cors = require("cors");
 const config = require("./configs/config");
 const routes = require("./routes/index");
 const errorHandler = require("./errorHandler/errorHandler");
-const { identifyRequest } = require("./middlewares/limits/limits");
 
 const startServer = async (app) => {
   try {
@@ -12,8 +11,6 @@ const startServer = async (app) => {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(bodyParser.text());
-
-    app.use(identifyRequest);
 
     routes(app);
 
