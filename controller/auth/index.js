@@ -12,7 +12,8 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const account = await authService.getAccountByEmail(email);
+    // const account = await authService.getAccountByEmail(email);
+    const account = await firebaseService.getUserByEmail(email);
 
     if (!account) {
       throw { status: 404, message: constMessages.NO_DATA };

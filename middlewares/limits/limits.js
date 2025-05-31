@@ -33,14 +33,24 @@ const limitChecker = async (req, res, next) => {
       throw { status: 400, message: constMessages.INVALID_HASH };
     }
 
-    // TODO: Need to check headers
-    // 1. X-RapidAPI-Plan this is may be the id of plan which is need to be check
-    // 2. X-RapidAPI-User don't know what is this need to do research.
-    // 3. X-RapidAPI-Subscription don't know what is this need to do research.
-    // await userService.incrementUserRequestsCount(userInfo.id);
-
-    // NOTE: If everything is good need to process request.
     next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+const identifyRequest = (req, res, next) => {
+  try {
+    const isRapidAPIRequest =
+      req.headers["x-rapidapi-user"] &&
+      req.headers["x-rapidapi-proxy-secret"] &&
+      req.headers["x-rapidapi-request-id"];
+
+    if (isRapidAPIRequest) {
+      next();
+    } else {
+      throw { status: 403, message: constMessages.FORBIDDEN };
+    }
   } catch (error) {
     next(error);
   }
@@ -48,4 +58,5 @@ const limitChecker = async (req, res, next) => {
 
 module.exports = {
   limitChecker,
+  identifyRequest,
 };
